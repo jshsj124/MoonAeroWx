@@ -6,6 +6,28 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 
 > Safety notice: MoonAeroWx is intended for software development, education, and offline data analysis. It is not certified and must not be used for real aviation operational decisions.
 
+
+## 项目信息
+
+| 字段 | 内容 |
+| --- | --- |
+| 项目名称 | MoonAeroWx |
+| 项目标识 | `jshsj124/moonaerowx` |
+| 项目描述 | 基于 MoonBit 的航空气象报文解析与趋势分析工具包，支持 METAR/SPECI/TAF 解析、RVR 识别、飞行类别判定、批量统计以及 JSON/Markdown/CSV 输出。 |
+| 仓库地址 | https://github.com/jshsj124/MoonAeroWx |
+| 包名 | `jshsj124/moonaerowx` |
+| 许可证 | Apache-2.0 |
+
+## 文档导航
+
+- [架构说明](docs/architecture.md)
+- [CLI 使用指南](docs/cli.md)
+- [批量分析流程](docs/batch.md)
+- [功能覆盖矩阵](docs/coverage.md)
+- [诊断码参考](docs/diagnostics.md)
+- [局限性与安全边界](docs/limitations.md)
+- [演示输出](docs/demo-output.md)
+
 ## Current MVP
 
 - Whitespace tokenizer with source spans.
