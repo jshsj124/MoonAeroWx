@@ -1,0 +1,320 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jshsj124/moonaerowx"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn batch_to_csv(BatchReport) -> String
+
+pub fn batch_to_markdown(BatchReport) -> String
+
+pub fn classify(MetarReport, rules? : FlightCategoryRules) -> FlightCategory
+
+pub fn flight_category_to_string(FlightCategory) -> String
+
+pub fn metar_batch_to_csv(String, rules? : FlightCategoryRules) -> String
+
+pub fn metar_batch_to_markdown(String, rules? : FlightCategoryRules) -> String
+
+pub fn metar_to_csv(MetarReport) -> String
+
+pub fn metar_to_json(MetarReport) -> String
+
+pub fn metar_to_markdown(MetarReport) -> String
+
+pub fn metar_to_summary(MetarReport) -> String
+
+pub fn parse_metar(String) -> ParseResult[MetarReport]
+
+pub fn parse_metar_batch(String, rules? : FlightCategoryRules) -> BatchReport
+
+pub fn parse_speci(String) -> ParseResult[MetarReport]
+
+pub fn parse_taf(String) -> ParseResult[TafReport]
+
+pub fn standard_rules() -> FlightCategoryRules
+
+pub fn taf_timeline(TafReport) -> Array[TafTimelineEntry]
+
+pub fn taf_timeline_to_summary(TafReport) -> String
+
+pub fn tokenize(String) -> Array[Token]
+
+// Errors
+
+// Types and methods
+pub(all) struct BatchReport {
+  total_reports : Int
+  parsed_reports : Int
+  error_reports : Int
+  warning_reports : Int
+  diagnostics_count : Int
+  vfr_count : Int
+  mvfr_count : Int
+  ifr_count : Int
+  lifr_count : Int
+  unknown_category_count : Int
+  low_visibility_events : Int
+  low_ceiling_events : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) enum CloudCoverage {
+  Few
+  Scattered
+  Broken
+  Overcast
+  SkyClear
+  NoSignificantCloud
+  NoCloudDetected
+} derive(Eq, @debug.Debug)
+
+pub(all) struct CloudLayer {
+  coverage : CloudCoverage
+  height_feet : Int?
+  cumulonimbus : Bool
+  towering_cumulus : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Diagnostic {
+  severity : Severity
+  code : DiagnosticCode
+  message : String
+  span : Span
+  token : String
+} derive(Eq, @debug.Debug)
+pub fn Diagnostic::is_error(Self) -> Bool
+pub fn Diagnostic::new(Severity, DiagnosticCode, String, Span, token? : String) -> Self
+pub fn Diagnostic::to_string(Self) -> String
+
+pub(all) enum DiagnosticCode {
+  EmptyInput
+  MissingStation
+  MissingObservationTime
+  InvalidStation
+  InvalidTime
+  InvalidWind
+  InvalidVisibility
+  InvalidWeather
+  InvalidCloud
+  InvalidTemperature
+  InvalidPressure
+  InvalidTafPeriod
+  InvalidTafChange
+  InvalidRunwayVisualRange
+  UnknownToken
+} derive(Eq, @debug.Debug)
+
+pub(all) enum FlightCategory {
+  VFR
+  MVFR
+  IFR
+  LIFR
+  UnknownCategory
+} derive(Eq, @debug.Debug)
+
+pub(all) struct FlightCategoryRules {
+  mvfr_visibility_meters : Int
+  ifr_visibility_meters : Int
+  lifr_visibility_meters : Int
+  mvfr_ceiling_feet : Int
+  ifr_ceiling_feet : Int
+  lifr_ceiling_feet : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct MetarReport {
+  kind : ReportKind
+  station : String
+  observation_time : ObservationTime
+  automated : Bool
+  correction : Bool
+  wind : Wind?
+  variable_wind : VariableWindDirection?
+  visibility : Visibility?
+  rvr : Array[RunwayVisualRange]
+  cavok : Bool
+  weather : Array[Weather]
+  clouds : Array[CloudLayer]
+  temperature : Temperature?
+  pressure : Pressure?
+  trend : Trend?
+  remarks : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ObservationTime {
+  day : Int
+  hour : Int
+  minute : Int
+} derive(Eq, @debug.Debug)
+pub fn ObservationTime::to_string(Self) -> String
+
+pub(all) struct ParseResult[T] {
+  value : T?
+  diagnostics : Array[Diagnostic]
+} derive(Eq, @debug.Debug)
+pub fn[T] ParseResult::has_errors(Self[T]) -> Bool
+pub fn[T] ParseResult::unwrap(Self[T]) -> T
+
+pub(all) struct Pressure {
+  value : Int
+  unit : PressureUnit
+} derive(Eq, @debug.Debug)
+
+pub(all) enum PressureUnit {
+  HectoPascal
+  InchesHgHundredths
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ReportKind {
+  Metar
+  Speci
+  UnspecifiedReport
+} derive(Eq, @debug.Debug)
+
+pub(all) struct RunwayVisualRange {
+  runway : String
+  minimum_meters : Int
+  maximum_meters : Int?
+  above_maximum : Bool
+  below_minimum : Bool
+  trend : RvrTrend?
+} derive(Eq, @debug.Debug)
+
+pub(all) enum RvrTrend {
+  RvrIncreasing
+  RvrDecreasing
+  RvrNoChange
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Severity {
+  Error
+  Warning
+  Info
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Span {
+  start : Int
+  end : Int
+  line : Int
+  column : Int
+} derive(Eq, @debug.Debug)
+pub fn Span::new(Int, Int, line? : Int, column? : Int) -> Self
+
+pub(all) struct TafChangeGroup {
+  kind : TafChangeKind
+  period : TafPeriod?
+  from_time : TafTime?
+  probability_percent : Int?
+  conditions : TafConditions
+} derive(Eq, @debug.Debug)
+
+pub(all) enum TafChangeKind {
+  From
+  Becoming
+  Temporary
+  Probability
+  ProbabilityTemporary
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TafConditions {
+  wind : Wind?
+  variable_wind : VariableWindDirection?
+  visibility : Visibility?
+  rvr : Array[RunwayVisualRange]
+  cavok : Bool
+  weather : Array[Weather]
+  clouds : Array[CloudLayer]
+  raw_tokens : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TafPeriod {
+  start : TafTime
+  end : TafTime
+} derive(Eq, @debug.Debug)
+pub fn TafPeriod::to_string(Self) -> String
+
+pub(all) struct TafReport {
+  station : String
+  issue_time : ObservationTime?
+  valid_period : TafPeriod
+  initial : TafConditions
+  changes : Array[TafChangeGroup]
+  raw : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TafTime {
+  day : Int
+  hour : Int
+  minute : Int
+} derive(Compare, Eq, @debug.Debug)
+pub fn TafTime::to_string(Self) -> String
+
+pub(all) struct TafTimelineEntry {
+  label : String
+  period : TafPeriod?
+  conditions : TafConditions
+  probability_percent : Int?
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Temperature {
+  air_celsius : Int
+  dew_point_celsius : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Token {
+  lexeme : String
+  span : Span
+} derive(Eq, @debug.Debug)
+pub fn Token::to_string(Self) -> String
+
+pub(all) enum Trend {
+  NoSignificantChange
+} derive(Eq, @debug.Debug)
+
+pub(all) struct VariableWindDirection {
+  from_degrees : Int
+  to_degrees : Int
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Visibility {
+  value : Int
+  unit : VisibilityUnit
+  greater_than : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) enum VisibilityUnit {
+  Meters
+  StatuteMiles
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Weather {
+  raw : String
+  intensity : WeatherIntensity
+  description : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum WeatherIntensity {
+  Light
+  Moderate
+  Heavy
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Wind {
+  direction_degrees : Int?
+  variable_direction : Bool
+  speed : Int
+  gust : Int?
+  unit : WindUnit
+} derive(Eq, @debug.Debug)
+
+pub(all) enum WindUnit {
+  Knots
+  MetersPerSecond
+} derive(Eq, @debug.Debug)
+pub fn WindUnit::to_string(Self) -> String
+
+// Type aliases
+
+// Traits
+

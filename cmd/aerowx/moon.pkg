@@ -1,0 +1,6 @@
+import {
+  "jshsj124/moonaerowx" @lib,
+  "moonbitlang/core/env",
+}
+
+pkgtype(kind: "executable")
