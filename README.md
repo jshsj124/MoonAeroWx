@@ -1,4 +1,4 @@
-﻿# MoonAeroWx
+# MoonAeroWx
 
 **MoonBit 航空气象报文解析与趋势分析工具包**
 
