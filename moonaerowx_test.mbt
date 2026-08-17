@@ -223,3 +223,28 @@ test "invalid RVR variable range emits dedicated diagnostic" {
   assert_eq(result.diagnostics[0].code, InvalidRunwayVisualRange)
   assert_true(result.diagnostics[0].message.contains("variable range"))
 }
+
+///|
+test "RVR JSON and summary expose limit flags" {
+  let report = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS 0600 R18/P1500U R19/M0400N FG OVC004 16/15 Q1008",
+  ).unwrap()
+  let json = @moonaerowx.metar_to_json(report)
+  assert_true(json.contains("\"runway\":\"18\""))
+  assert_true(json.contains("\"above_maximum\":true"))
+  assert_true(json.contains("\"below_minimum\":true"))
+  let summary = @moonaerowx.metar_to_summary(report)
+  assert_true(summary.contains("R18 >1500 m increasing"))
+  assert_true(summary.contains("R19 <400 m no_change"))
+}
+
+///|
+test "batch convenience formatters parse and render directly" {
+  let source = "ZBAA 171200Z 12008MPS 9999 SCT020 18/16 Q1008\nZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004"
+  let markdown = @moonaerowx.metar_batch_to_markdown(source)
+  assert_true(markdown.contains("| Total reports | 2 |"))
+  assert_true(markdown.contains("| LIFR | 1 |"))
+  let csv = @moonaerowx.metar_batch_to_csv(source)
+  assert_true(csv.contains("total_reports,parsed_reports"))
+  assert_true(csv.contains("2,2,0"))
+}
