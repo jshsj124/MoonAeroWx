@@ -202,3 +202,24 @@ test "batch statistics render as Markdown and CSV" {
   assert_true(csv.contains("total_reports,parsed_reports"))
   assert_true(csv.contains("3,3,1"))
 }
+
+///|
+test "invalid RVR runway emits dedicated diagnostic" {
+  let result = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS 0800 R1/P1500U FG OVC004 16/15 Q1008",
+  )
+  assert_true(result.has_errors())
+  let diagnostic = result.diagnostics[0]
+  assert_eq(diagnostic.code, InvalidRunwayVisualRange)
+  assert_eq(diagnostic.token, "R1/P1500U")
+}
+
+///|
+test "invalid RVR variable range emits dedicated diagnostic" {
+  let result = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS 0800 R18/040V0800D FG OVC004 16/15 Q1008",
+  )
+  assert_true(result.has_errors())
+  assert_eq(result.diagnostics[0].code, InvalidRunwayVisualRange)
+  assert_true(result.diagnostics[0].message.contains("variable range"))
+}
