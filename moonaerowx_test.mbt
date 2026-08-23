@@ -248,3 +248,39 @@ test "batch convenience formatters parse and render directly" {
   assert_true(csv.contains("total_reports,parsed_reports"))
   assert_true(csv.contains("2,2,0"))
 }
+
+///|
+test "CAVOK visibility is recognized as VFR" {
+  let result = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS CAVOK 18/16 Q1008",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_true(report.cavok)
+  assert_eq(report.visibility.unwrap().value, 10000)
+  assert_eq(@moonaerowx.classify(report), VFR)
+}
+
+///|
+test "unrecognized METAR tokens are preserved as remarks" {
+  let result = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS 8000 SCT020 18/16 Q1008 RMK ABC123",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_eq(report.remarks.length(), 1)
+  assert_true(report.remarks.contains("ABC123"))
+}
+
+///|
+test "unknown METAR tokens emit warnings and remain searchable" {
+  let result = @moonaerowx.parse_metar(
+    "ZBAA 171200Z 12008MPS 8000 SCT020 18/16 Q1008 XYZ",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_true(report.remarks.contains("XYZ"))
+  assert_true(
+    result.diagnostics.any(fn(diagnostic) { diagnostic.code == UnknownToken }),
+  )
+}

@@ -27,6 +27,7 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - [诊断码参考](docs/diagnostics.md)
 - [局限性与安全边界](docs/limitations.md)
 - [开发历程](docs/development-log.md)
+- [正式验收清单](docs/release-checklist.md)
 - [演示输出](docs/demo-output.md)
 
 ## Current MVP
