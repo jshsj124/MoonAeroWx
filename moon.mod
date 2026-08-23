@@ -6,6 +6,8 @@ readme = "README.mbt.md"
 
 license = "Apache-2.0"
 
+repository = "https://github.com/jshsj124/MoonAeroWx"
+
 keywords = [ "aviation", "weather", "metar", "speci", "taf", "parser" ]
 
 preferred_target = "wasm-gc"
