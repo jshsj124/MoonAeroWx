@@ -1,5 +1,7 @@
 # MoonAeroWx
 
+[![CI](https://github.com/jshsj124/MoonAeroWx/actions/workflows/ci.yml/badge.svg)](https://github.com/jshsj124/MoonAeroWx/actions/workflows/ci.yml)
+
 **MoonBit 航空气象报文解析与趋势分析工具包**
 
 MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The current milestone focuses on common METAR/SPECI groups, RVR-aware TAF timelines, structured diagnostics, JSON/Markdown/CSV output, batch statistics, and configurable flight-category classification.
@@ -35,6 +37,7 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - [开发历程](docs/development-log.md)
 - [正式验收清单](docs/release-checklist.md)
 - [演示输出](docs/demo-output.md)
+- [最终总结](docs/final-summary.md)
 
 ## Current MVP
 

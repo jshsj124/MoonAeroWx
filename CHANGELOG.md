@@ -27,4 +27,5 @@ All notable changes to MoonAeroWx are documented here.
 
 - Added CLI usage guide, batch workflow notes, diagnostics reference, and expanded architecture notes.
 - Added quick-start and release-status sections to the README, plus refreshed coverage notes.
+- Added final summary documentation for acceptance review.
 - Clarified TAF month-boundary limits in the documentation and development log.
