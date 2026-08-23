@@ -1,4 +1,4 @@
-﻿# Demo Output
+# Demo Output
 
 These examples show what reviewers can expect from the CLI without needing to inspect internal data structures.
 
@@ -70,4 +70,31 @@ Output:
 ```csv
 total_reports,parsed_reports,error_reports,warning_reports,diagnostics_count,vfr_count,mvfr_count,ifr_count,lifr_count,unknown_category_count,low_visibility_events,low_ceiling_events
 2,2,0,0,0,1,0,0,1,0,1,1
+```
+## Validation diagnostics
+
+Command:
+
+```bash
+moon run cmd/aerowx -- validate ""
+```
+
+Output:
+
+```text
+error: report must not be empty at 1:1
+invalid
+```
+
+Command:
+
+```bash
+moon run cmd/aerowx -- validate "ZBAA 171200Z 99908MPS 8000"
+```
+
+Output:
+
+```text
+error: wind direction must be 000..360 or VRB at 1:14
+invalid
 ```

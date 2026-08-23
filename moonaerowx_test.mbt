@@ -322,3 +322,31 @@ test "batch parser ignores blank lines and CRLF endings" {
   assert_eq(batch.error_reports, 0)
   assert_eq(batch.vfr_count + batch.lifr_count, 2)
 }
+
+///|
+test "parse_metar rejects empty input" {
+  let result = @moonaerowx.parse_metar("")
+  assert_true(result.has_errors())
+  assert_eq(result.diagnostics[0].code, EmptyInput)
+}
+
+///|
+test "parse_taf rejects empty input" {
+  let result = @moonaerowx.parse_taf("")
+  assert_true(result.has_errors())
+  assert_eq(result.diagnostics[0].code, EmptyInput)
+}
+
+///|
+test "parse_taf preserves unknown condition tokens as raw tokens" {
+  let result = @moonaerowx.parse_taf(
+    "TAF ZBAA 171100Z 1712/1812 12008MPS 8000 SCT020 FOOBAR",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_true(report.initial.raw_tokens.contains("FOOBAR"))
+  assert_true(
+    result.diagnostics.any(fn(diagnostic) { diagnostic.code == UnknownToken }),
+  )
+  assert_eq(report.changes.length(), 0)
+}

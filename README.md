@@ -18,6 +18,12 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 | 包名 | `jshsj124/moonaerowx` |
 | 许可证 | Apache-2.0 |
 
+## 发布与验收状态
+
+- 已通过 `moon publish` 发布到 mooncakes.io。
+- GitHub Actions 已覆盖 `moon fmt`、`moon check --warn-list +unnecessary_annotation`、`moon test` 和 `moon info`。
+- 当前验收材料包括开发历程、正式验收清单、演示输出和覆盖矩阵。
+
 ## 文档导航
 
 - [架构说明](docs/architecture.md)
@@ -52,6 +58,14 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - VFR/MVFR/IFR/LIFR classification with configurable thresholds.
 - TAF parser for issue time, valid period, initial forecast, `FM`, `BECMG`, `TEMPO`, `PROB`, and `PROB TEMPO` groups.
 - Visualization-friendly TAF timeline expansion and text timeline output.
+
+## 快速开始
+
+```bash
+moon test
+moon run cmd/aerowx -- decode "ZBAA 171200Z 12008MPS 8000 -RA SCT020 18/16 Q1008"
+moon run cmd/aerowx -- timeline "TAF ZBAA 171100Z 1712/1812 12008MPS 8000 SCT020 TEMPO 1715/1718 0600 R18/0400V0800D FG OVC004 FM180000 20012MPS 9999 NSW SCT030"
+```
 
 ## Library example
 
@@ -104,7 +118,7 @@ ZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004"
 2. Add runway state, wind-shear, sea-state and richer remarks support.
 3. Harden TAF edge cases, nested regional groups, and month-boundary semantics.
 4. Add Wasm demo assets and richer batch input adapters.
-5. Add multi-backend CI and publishing metadata once the GitHub/GitLink repositories are created.
+5. Keep multi-backend CI, release notes, and publishing metadata aligned with future releases.
 
 ## License
 
