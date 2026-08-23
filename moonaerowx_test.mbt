@@ -284,3 +284,41 @@ test "unknown METAR tokens emit warnings and remain searchable" {
     result.diagnostics.any(fn(diagnostic) { diagnostic.code == UnknownToken }),
   )
 }
+
+///|
+test "parse_speci wrapper preserves explicit report kind" {
+  let result = @moonaerowx.parse_speci(
+    "SPECI ZGGG 171300Z VRB03KT 4000 BR BKN008 26/25 Q1004",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_eq(report.kind, Speci)
+  assert_eq(report.station, "ZGGG")
+  assert_true(report.wind.unwrap().variable_direction)
+  assert_eq(@moonaerowx.classify(report), IFR)
+}
+
+///|
+test "TAF PROB TEMPO groups retain probability overlays in timeline" {
+  let result = @moonaerowx.parse_taf(
+    "TAF ZBAA 171100Z 1712/1812 12008MPS 8000 SCT020 PROB40 TEMPO 1715/1718 0600 FG OVC004",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_eq(report.changes.length(), 1)
+  assert_eq(report.changes[0].kind, ProbabilityTemporary)
+  assert_eq(report.changes[0].probability_percent, Some(40))
+  let summary = @moonaerowx.taf_timeline_to_summary(report)
+  assert_true(summary.contains("PROB TEMPO PROB40"))
+  assert_true(summary.contains("visibility 600 m"))
+}
+
+///|
+test "batch parser ignores blank lines and CRLF endings" {
+  let source = "ZBAA 171200Z 12008MPS 9999 SCT020 18/16 Q1008\r\n\r\nZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004\r\n"
+  let batch = @moonaerowx.parse_metar_batch(source)
+  assert_eq(batch.total_reports, 2)
+  assert_eq(batch.parsed_reports, 2)
+  assert_eq(batch.error_reports, 0)
+  assert_eq(batch.vfr_count + batch.lifr_count, 2)
+}

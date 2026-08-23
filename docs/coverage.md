@@ -1,4 +1,4 @@
-﻿# Feature Coverage Matrix
+# Feature Coverage Matrix
 
 This document summarizes the current MoonAeroWx MVP coverage for reviewers and downstream users.
 
@@ -48,4 +48,4 @@ This document summarizes the current MoonAeroWx MVP coverage for reviewers and d
 
 ## Test coverage snapshot
 
-The current suite covers token spans, METAR/SPECI decoding, US-style visibility and altimeter groups, diagnostics, TAF changes, TAF timelines, RVR parsing, Markdown/CSV/JSON output, and batch aggregation.
+The current suite covers token spans, METAR/SPECI decoding, US-style visibility and altimeter groups, diagnostics, TAF changes, TAF timelines, RVR parsing, Markdown/CSV/JSON output, batch aggregation, SPECI wrapper parity, PROB TEMPO overlays, and CRLF/blank-line batch handling.
