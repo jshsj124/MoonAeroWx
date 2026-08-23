@@ -25,6 +25,7 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - 已通过 `moon publish` 发布到 mooncakes.io。
 - GitHub Actions 已覆盖 `moon fmt`、`moon check --warn-list +unnecessary_annotation`、`moon test` 和 `moon info`。
 - 当前验收材料包括开发历程、正式验收清单、演示输出和覆盖矩阵。
+- 当前源码规模快照见 [项目统计](docs/project-stats.md)：10 个 MoonBit 源文件，2821 行（不含 `_build`）。
 
 ## 文档导航
 
@@ -37,6 +38,7 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - [开发历程](docs/development-log.md)
 - [正式验收清单](docs/release-checklist.md)
 - [演示输出](docs/demo-output.md)
+- [项目统计](docs/project-stats.md)
 - [最终总结](docs/final-summary.md)
 
 ## Current MVP
@@ -126,4 +128,3 @@ ZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004"
 ## License
 
 Apache-2.0.
-

@@ -13,6 +13,12 @@ MoonAeroWx 是一个纯 MoonBit 的航空气象报文解析与趋势分析工具
 - 测试：`moon test` 通过
 - 工程检查：`moon fmt`、`moon check --warn-list +unnecessary_annotation`、`moon info` 通过
 
+## 项目规模
+
+- MoonBit 源文件：10 个
+- `.mbt` 源码：2821 行
+- 统计口径：仅计算仓库内 `.mbt` 源文件，不含 `_build`、生成物和文档。
+
 ## 核心能力
 
 - METAR / SPECI 解析
