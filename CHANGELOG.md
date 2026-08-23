@@ -16,6 +16,7 @@ All notable changes to MoonAeroWx are documented here.
 - Newline-delimited batch parsing with aggregate Markdown and CSV reports.
 - Command line entry point under `cmd/aerowx`.
 - Added empty-input, unknown-condition, SPECI wrapper, and PROB TEMPO regression tests.
+- Added month-boundary preservation coverage for TAF timelines.
 
 ### Safety
 
@@ -26,3 +27,4 @@ All notable changes to MoonAeroWx are documented here.
 
 - Added CLI usage guide, batch workflow notes, diagnostics reference, and expanded architecture notes.
 - Added quick-start and release-status sections to the README, plus refreshed coverage notes.
+- Clarified TAF month-boundary limits in the documentation and development log.

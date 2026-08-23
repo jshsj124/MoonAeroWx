@@ -116,7 +116,7 @@ ZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004"
 
 1. Harden remaining METAR grammar and diagnostics.
 2. Add runway state, wind-shear, sea-state and richer remarks support.
-3. Harden TAF edge cases, nested regional groups, and month-boundary semantics.
+3. Harden TAF edge cases, nested regional groups, and calendar-aware month-boundary semantics.
 4. Add Wasm demo assets and richer batch input adapters.
 5. Keep multi-backend CI, release notes, and publishing metadata aligned with future releases.
 

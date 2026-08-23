@@ -350,3 +350,19 @@ test "parse_taf preserves unknown condition tokens as raw tokens" {
   )
   assert_eq(report.changes.length(), 0)
 }
+
+///|
+test "TAF month-boundary periods are preserved literally" {
+  let result = @moonaerowx.parse_taf(
+    "TAF ZBAA 311100Z 3112/0106 12008MPS 8000 SCT020 FM010000 20012MPS 9999 NSW SCT030",
+  )
+  assert_false(result.has_errors())
+  let report = result.unwrap()
+  assert_eq(report.valid_period.start.day, 31)
+  assert_eq(report.valid_period.end.day, 1)
+  assert_eq(report.changes.length(), 1)
+  assert_eq(report.changes[0].kind, From)
+  assert_eq(report.changes[0].from_time.unwrap().day, 1)
+  let summary = @moonaerowx.taf_timeline_to_summary(report)
+  assert_true(summary.contains("day 31, 12:00 UTC to day 1, 06:00 UTC"))
+}
