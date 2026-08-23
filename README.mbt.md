@@ -16,7 +16,7 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 | 项目描述 | 基于 MoonBit 的航空气象报文解析与趋势分析工具包，支持 METAR/SPECI/TAF 解析、RVR 识别、飞行类别判定、批量统计以及 JSON/Markdown/CSV 输出。 |
 | 仓库地址 | https://github.com/jshsj124/MoonAeroWx |
 | 包名 | `jshsj124/moonaerowx` |
-| 源码规模 | 10 个 MoonBit 源文件，2821 行（统计快照见项目统计） |
+| 源码规模 | 10 个 MoonBit 源文件，2667 行（统计快照见项目统计） |
 | 许可证 | Apache-2.0 |
 
 ## 文档导航
@@ -29,8 +29,9 @@ MoonAeroWx is a pure MoonBit toolkit for parsing aviation weather reports. The c
 - [局限性与安全边界](docs/limitations.md)
 - [开发历程](docs/development-log.md)
 - [正式验收清单](docs/release-checklist.md)
-- [项目统计](docs/project-stats.md)
 - [演示输出](docs/demo-output.md)
+- [项目统计](docs/project-stats.md)
+- [最终总结](docs/final-summary.md)
 
 ## Current MVP
 
@@ -106,7 +107,7 @@ ZGGG 171300Z VRB03KT 0600 FG OVC004 26/25 Q1004"
 2. Add runway state, wind-shear, sea-state and richer remarks support.
 3. Harden TAF edge cases, nested regional groups, and month-boundary semantics.
 4. Add Wasm demo assets and richer batch input adapters.
-5. Add multi-backend CI and publishing metadata once the GitHub/GitLink repositories are created.
+5. Add multi-backend CI and publishing metadata once the GitHub repositories are created.
 
 ## License
 

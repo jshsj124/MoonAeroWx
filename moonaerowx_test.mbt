@@ -364,5 +364,9 @@ test "TAF month-boundary periods are preserved literally" {
   assert_eq(report.changes[0].kind, From)
   assert_eq(report.changes[0].from_time.unwrap().day, 1)
   let summary = @moonaerowx.taf_timeline_to_summary(report)
-  assert_true(summary.contains("day 31, 12:00 UTC to day 1, 06:00 UTC"))
+  assert_true(
+    summary.contains(
+      "day 31, 12:00 UTC to day 1, 06:00 UTC (crosses month boundary)",
+    ),
+  )
 }

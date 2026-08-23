@@ -323,7 +323,12 @@ fn taf_conditions_summary(conditions : TafConditions) -> String {
 ///|
 fn taf_entry_period_summary(period : TafPeriod?) -> String {
   match period {
-    Some(value) => value.to_string()
+    Some(value) =>
+      if value.end.day < value.start.day {
+        value.to_string() + " (crosses month boundary)"
+      } else {
+        value.to_string()
+      }
     None => "period unavailable"
   }
 }
@@ -334,7 +339,7 @@ pub fn taf_timeline_to_summary(report : TafReport) -> String {
   let mut out = "TAF " +
     report.station +
     "\nValid: " +
-    report.valid_period.to_string()
+    taf_entry_period_summary(Some(report.valid_period))
   match report.issue_time {
     Some(time) => out = out + "\nIssued: " + time.to_string()
     None => ()

@@ -19,7 +19,7 @@ MoonAeroWx is a developer-oriented parser and analysis toolkit. It is not an ope
 | Sea state / runway contamination | Not yet decoded. |
 | Rich `RMK` sections | Preserved but not semantically expanded. |
 | Complex weather combinations | Common groups are decoded first; rare combinations may become `UnknownToken`. |
-| TAF month boundary | Not yet expanded into calendar-aware rollover inference; current periods preserve literal DDHH/DDHH day values. |
+| TAF month boundary | Not yet fully calendar-aware; summaries annotate likely month-boundary crossings, but internal periods still preserve literal DDHH/DDHH day values. |
 | Localization | Public output strings are currently English-oriented for stable fixtures and CLI scripts. |
 
 ## Design choices
